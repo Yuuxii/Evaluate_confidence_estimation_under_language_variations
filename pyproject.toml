@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ce-variations"
+version = "0.1.0"
+description = "Evaluating confidence estimation under language variations: robustness, stability and sensitivity"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { file = "LICENSE" }
+dependencies = [
+    "numpy",
+    "pandas",
+    "scikit-learn",
+    "matplotlib",
+    "jinja2",
+]
+
+[project.optional-dependencies]
+generation = ["torch", "transformers", "vllm", "datasets"]
+judge = ["openai", "pyyaml"]
+
+[project.scripts]
+ce-generate = "ce_variations.generation.infer:main"
+ce-whitebox = "ce_variations.generation.white_box:main"
+ce-judge = "ce_variations.judging.judge:main"
+ce-eval = "ce_variations.evaluation.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
